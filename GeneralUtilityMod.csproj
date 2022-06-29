@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AssemblyName>GeneralUtilityMod</AssemblyName>
+		<Description>A mod for gamers</Description>
+		<Version>1.0</Version>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Variables">
+		<!-- SET BELOW TO GAME BASE DIRECTORY-->
+		<GameDir>C:\Program Files (x86)\Steam\steamapps\common\20MinuteTillDawn</GameDir>
+		<BepInExDir>$(GameDir)\BepInEx</BepInExDir>
+		<GameLibDir>$(GameDir)\MinutesTillDawn_Data\Managed</GameLibDir>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+		<PackageReference Include="BepInEx.Core" Version="5.*" />
+		<PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
+		<PackageReference Include="UnityEngine.Modules" Version="2019.4.40" IncludeAssets="compile" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>$(GameLibDir)/Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine UI">
+			<HintPath>$(GameLibDir)/UnityEngine.UI.dll</HintPath>
+		</Reference>
+		<Reference Include="MTDUI">
+			<HintPath>$(BepInExDir)\plugins\MTDUI\MTDUI.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<!--Automatic deploy-->
+	<Target Name="Deploy" AfterTargets="Build">
+		<Copy SourceFiles="@(MainAssembly)" DestinationFolder="$(BepInExDir)\plugins" />
+	</Target>
+
+  <!--Automatic antideploy-->
+	<Target Name="AntiDeploy" AfterTargets="Clean">
+		<Delete Files="$(BepInExDir)\plugins\$(AssemblyName).dll" />
+	</Target>
+
+	<!--Release packaging-->
+	<Target Name="Package" AfterTargets="Publish">
+		<MakeDir Directories="$(MSBuildProjectDirectory)\release" />
+		<Copy SourceFiles="@(MainAssembly)" DestinationFolder="$(MSBuildProjectDirectory)\release" />
+    <Copy SourceFiles="README.md;icon.png;manifest.json" DestinationFolder="$(MSBuildProjectDirectory)\release"/>
+		<ZipDirectory SourceDirectory="$(MSBuildProjectDirectory)\release" DestinationFile="$(MSBuildProjectDirectory)\$(AssemblyName)-v$(Version).zip" />
+	</Target>
+</Project>
