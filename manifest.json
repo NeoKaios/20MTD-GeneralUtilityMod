@@ -1,0 +1,10 @@
+{
+    "name": "GeneralUtilityMod",
+    "version_number": "1.0.0",
+    "website_url": "",
+    "description": "This mod provides some quality of life changes to the game",
+    "dependencies": [
+        "BepInExPackMTD-BepInExPack_20MTD-1.0.0",
+        "Bobbie-MTDUI-1.0.3"
+    ]
+}

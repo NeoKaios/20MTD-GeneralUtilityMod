@@ -41,6 +41,7 @@ namespace GeneralUtilityMod.Patches
         [HarmonyPrefix]
         static void WaitEnter_prefix(TitleScreenController ___owner)
         {
+            // Avoid loading default character, map and gun
             if (GUMPlugin.menuStartAt.Value == MainMenuState.WaitToBattle)
             {
                 SelectedMap.MapData = ___owner.modeSelectMenu.toggledData;
@@ -50,6 +51,7 @@ namespace GeneralUtilityMod.Patches
                 LoadoutSelectState lss = ___owner.GetState<LoadoutSelectState>();
                 AccessTools.DeclaredMethod(typeof(LoadoutSelectState), "SetLoadout").Invoke(lss, null);
             }
+            // Remove runes
             if (GUMPlugin.noRune.Value)
             {
                 Loadout.RuneSelection = null;
@@ -74,6 +76,7 @@ namespace GeneralUtilityMod.Patches
             var codes = new List<CodeInstruction>(instructions);
             for (var i = 1; i < codes.Count; i++)
             {
+                // Finding the correct spot to change in WaitToLoadCR IL code
                 if (codes[i].opcode == OpCodes.Callvirt && codes[i - 1].opcode == OpCodes.Ldfld)
                 {
                     codes[i].operand = AccessTools.Method(typeof(StateMachine), nameof(StateMachine.ChangeState), null, new Type[] { state });
