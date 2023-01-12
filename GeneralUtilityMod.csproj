@@ -35,7 +35,7 @@
 			<HintPath>$(GameLibDir)/UnityEngine.UI.dll</HintPath>
 		</Reference>
 		<Reference Include="MTDUI">
-			<HintPath>$(BepInExDir)\plugins\MTDUI\MTDUI.dll</HintPath>
+			<HintPath>$(BepInExDir)\plugins\MTDUI.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 
