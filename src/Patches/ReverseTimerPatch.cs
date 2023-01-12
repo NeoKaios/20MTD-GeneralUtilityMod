@@ -2,9 +2,7 @@ using HarmonyLib;
 using flanne;
 using flanne.UI;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using System.Linq;
-using UnityEngine;
 
 namespace GeneralUtilityMod.Patches
 {

@@ -23,7 +23,7 @@ namespace GeneralUtilityMod
                 Logger.LogInfo("<Inactive>");
                 return;
             }
-            menuStartAt = Config.Bind("Utility", "Menu Starting State", Patches.MainMenuState.Loadout, "State in which the title screen will load\n/!\\ WaitToBattle: Will directly launch Battle Scene | Cannot reach menu with this option");
+            menuStartAt = Config.Bind("Utility", "Menu Starting State", Patches.MainMenuState.Character, "State in which the title screen will load\n/!\\ WaitToBattle: Will directly launch Battle Scene | Cannot reach menu with this option");
             noRune = Config.Bind("Gameplay", "No Rune", false, "Play standard and quickplay without any rune");
             hasReverseTimer = Config.Bind("Utility", "Reverse Timer", false, "Reverse in-game timer, starts at 00:00, ends at 20:00");
 

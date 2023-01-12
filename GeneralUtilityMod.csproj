@@ -4,7 +4,7 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AssemblyName>GeneralUtilityMod</AssemblyName>
 		<Description>A mod for gamers</Description>
-		<Version>1.0.0</Version>
+		<Version>1.1.0</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
@@ -35,7 +35,7 @@
 			<HintPath>$(GameLibDir)/UnityEngine.UI.dll</HintPath>
 		</Reference>
 		<Reference Include="MTDUI">
-			<HintPath>$(BepInExDir)\plugins\MTDUI\MTDUI.dll</HintPath>
+			<HintPath>$(BepInExDir)\plugins\MTDUI.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 

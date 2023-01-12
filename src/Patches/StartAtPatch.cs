@@ -13,14 +13,13 @@ namespace GeneralUtilityMod.Patches
 {
     public enum MainMenuState
     {
-        [DescriptionAttribute("Descriptionde ed ede Attribute")]
+        [DescriptionAttribute("DescriptionAttribute")]
         Main,
-        Loadout,
+        Character,
+        Gun,
+        Rune,
         Mode,
         WaitToBattle,
-        Rune,
-        Option,
-        Language
     }
 
 
@@ -28,13 +27,12 @@ namespace GeneralUtilityMod.Patches
     class StartAtPatch
     {
         static Dictionary<MainMenuState, Type> stringToState = new Dictionary<MainMenuState, Type>() {
-                {MainMenuState.Loadout, typeof(LoadoutSelectState)},
                 {MainMenuState.Main, typeof(TitleMainMenuState)},
-                {MainMenuState.Option, typeof(OptionsMenuState)},
-                {MainMenuState.Language, typeof(LangaugeState)},
-                {MainMenuState.Rune, typeof(RuneMenuState)},
+                {MainMenuState.Character, typeof(CharacterSelectState)},
+                {MainMenuState.Gun, typeof(GunSelectState)},
+                {MainMenuState.Rune, typeof(RuneMenuGunState)},
+                {MainMenuState.Mode, typeof(ModeSelectState)},
                 {MainMenuState.WaitToBattle, typeof(WaitToLoadIntoBattleState)},
-                {MainMenuState.Mode, typeof(ModeSelectState)}
         };
 
         [HarmonyPatch(typeof(WaitToLoadIntoBattleState), "Enter")]
@@ -46,10 +44,11 @@ namespace GeneralUtilityMod.Patches
             {
                 SelectedMap.MapData = ___owner.modeSelectMenu.toggledData;
             }
-            if (GUMPlugin.menuStartAt.Value == MainMenuState.Mode || GUMPlugin.menuStartAt.Value == MainMenuState.WaitToBattle)
+            if (GUMPlugin.menuStartAt.Value == MainMenuState.Mode
+            || GUMPlugin.menuStartAt.Value == MainMenuState.WaitToBattle)
             {
-                LoadoutSelectState lss = ___owner.GetState<LoadoutSelectState>();
-                AccessTools.DeclaredMethod(typeof(LoadoutSelectState), "SetLoadout").Invoke(lss, null);
+                GunSelectState gss = ___owner.GetState<GunSelectState>();
+                AccessTools.DeclaredMethod(typeof(GunSelectState), "SetLoadout").Invoke(gss, null);
             }
             // Remove runes
             if (GUMPlugin.noRune.Value)
@@ -58,6 +57,13 @@ namespace GeneralUtilityMod.Patches
             }
         }
 
+        [HarmonyPatch(typeof(GunSelectState), "Enter")]
+        [HarmonyPrefix]
+        static void GunEnter_prefix(TitleScreenController ___owner)
+        {
+            // Fix used when startAt is set to Gun, Mode or Rune
+            ___owner.selectPanel.Show();
+        }
 
         [HarmonyPatch(typeof(InitState), "WaitToLoadCR", MethodType.Enumerator)]
         [HarmonyTranspiler]
