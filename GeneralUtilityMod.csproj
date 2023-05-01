@@ -34,6 +34,9 @@
 		<Reference Include="UnityEngine UI">
 			<HintPath>$(GameLibDir)/UnityEngine.UI.dll</HintPath>
 		</Reference>
+		<Reference Include="Unity.TextMeshPro">
+			<HintPath>$(GameLibDir)/Unity.TextMeshPro.dll</HintPath>
+		</Reference>
 		<Reference Include="MTDUI">
 			<HintPath>$(BepInExDir)\plugins\MTDUI.dll</HintPath>
 		</Reference>
