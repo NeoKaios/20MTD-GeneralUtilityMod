@@ -50,11 +50,6 @@ namespace GeneralUtilityMod.Patches
                 GunSelectState gss = ___owner.GetState<GunSelectState>();
                 AccessTools.DeclaredMethod(typeof(GunSelectState), "SetLoadout").Invoke(gss, null);
             }
-            // Remove runes
-            if (GUMPlugin.noRune.Value)
-            {
-                Loadout.RuneSelection = null;
-            }
         }
 
         [HarmonyPatch(typeof(GunSelectState), "Enter")]

@@ -13,10 +13,6 @@ GUM provides some quality of life configurable tweaks that make the game even be
 - Menu starting point: can start the game directly in the Character select menu for instance (needs restart)
 - Reverse Timer: If you prefer your timer to increase (like in endless) (needs restart)
 
-#### Gameplay
-
-- No rune: Standard and Quickplay with no rune for a harder challange
-
 ## Depedency
 
 For the in-game UI, rely on [MTDUI](https://github.com/legoandmars/MTDUI)
