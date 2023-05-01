@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2023-05-01
+
+### Added
+
+- Achievement Watcher
+
+### Removed
+
+- NoRune option: it's in base game now
+
 ## [1.1.0] - 2023-01-12
 
 ### Removed

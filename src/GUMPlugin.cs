@@ -12,8 +12,9 @@ namespace GeneralUtilityMod
     {
         public static ConfigEntry<bool> activateMod;
         public static ConfigEntry<Patches.MainMenuState> menuStartAt;
-        public static ConfigEntry<bool> noRune;
         public static ConfigEntry<bool> hasReverseTimer;
+        public static ConfigEntry<Patches.AchievementWatcherState> hasAchievementWatcher;
+        public static ConfigEntry<bool> achievementWatcherShowInactive;
         private void Awake()
         {
             activateMod = Config.Bind("Activation", "G.U.M.", true, "If false, the mod does not load");
@@ -24,8 +25,9 @@ namespace GeneralUtilityMod
                 return;
             }
             menuStartAt = Config.Bind("Utility", "Menu Starting State", Patches.MainMenuState.Character, "State in which the title screen will load\n/!\\ WaitToBattle: Will directly launch Battle Scene | Cannot reach menu with this option");
-            noRune = Config.Bind("Gameplay", "No Rune", false, "Play standard and quickplay without any rune");
             hasReverseTimer = Config.Bind("Utility", "Reverse Timer", false, "Reverse in-game timer, starts at 00:00, ends at 20:00");
+            hasAchievementWatcher = Config.Bind("Utility", "Achievement Watcher", Patches.AchievementWatcherState.Pause, "State of the Achievement Watcher panel");
+            achievementWatcherShowInactive = Config.Bind("Utility", "AW: Show inactive", false, "Whether or not to show currently failing achievements");
 
             try
             {
@@ -34,8 +36,9 @@ namespace GeneralUtilityMod
                 if (menuStartAt.Value == Patches.MainMenuState.WaitToBattle)
                     ModOptions.Register(menuStartAt, subMenuName: mod); // Not be stuck in WaitToBattle mod
                 else ModOptions.Register(menuStartAt, null, ConfigEntryLocationType.MainOnly, subMenuName: mod);
-                ModOptions.Register(noRune, null, ConfigEntryLocationType.MainOnly, subMenuName: mod);
                 ModOptions.Register(hasReverseTimer, null, ConfigEntryLocationType.MainOnly, subMenuName: mod);
+                ModOptions.Register(hasAchievementWatcher, subMenuName: mod);
+                ModOptions.Register(achievementWatcherShowInactive, subMenuName: mod);
             }
             catch (Exception e)
             {

@@ -13,13 +13,23 @@ GUM provides some quality of life configurable tweaks that make the game even be
 - Menu starting point: can start the game directly in the Character select menu for instance (needs restart)
 - Reverse Timer: If you prefer your timer to increase (like in endless) (needs restart)
 
-#### Gameplay
+#### Achievement Watcher
 
-- No rune: Standard and Quickplay with no rune for a harder challange
+Display special achievements that should unlocked at the end of the run
+
+Include the following : `Nimble`, `Pacifist`, `Reckless`, `On the edge` and `Gotta catch 'em ALL`
+
+Configuration:
+- Display mode: `Never`, `Pause` or `Always`
+- Display currently inactive achievements: `true` or `false`
 
 ## Depedency
 
-For the in-game UI, rely on [MTDUI](https://github.com/legoandmars/MTDUI)
+For the in-game configuration UI, rely on [MTDUI](https://github.com/legoandmars/MTDUI)
+
+## Contributions
+
+The code for the *Achievement Watcher* UI was based on @sloverlord [BetterUI](https://github.com/sloverlord/BetterUI) mod
 
 ## For modders
 
