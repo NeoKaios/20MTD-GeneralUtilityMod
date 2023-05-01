@@ -71,7 +71,10 @@ namespace GeneralUtilityMod.Patches
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(PauseState), "Enter")]
-        private static void PauseStateEnterPostPatch()
+        [HarmonyPatch(typeof(PowerupMenuState), "Enter")]
+        [HarmonyPatch(typeof(DevilDealState), "Enter")]
+        [HarmonyPatch(typeof(ChestState), "Enter")]
+        private static void PauseEnterPost()
         {
             if (GUMPlugin.hasAchievementWatcher.Value == AchievementWatcherState.Pause)
             {
@@ -81,7 +84,7 @@ namespace GeneralUtilityMod.Patches
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(CombatState), "Enter")]
-        private static void CombatStateEnterPostPatch()
+        private static void CombatStateEnterPost()
         {
             switch (GUMPlugin.hasAchievementWatcher.Value)
             {
@@ -98,15 +101,8 @@ namespace GeneralUtilityMod.Patches
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(PlayerSurvivedState), "Enter")]
-        private static void PlayerSurvivedStatePostEnter()
-        {
-            achievementPanel.StopWatcher();
-            achievementPanel.Hide();
-        }
-
-        [HarmonyPostfix]
         [HarmonyPatch(typeof(PlayerDeadState), "Enter")]
-        private static void PlayerDeadStatePostEnter()
+        private static void GameEndEnterPost()
         {
             achievementPanel.StopWatcher();
             achievementPanel.Hide();
@@ -114,7 +110,7 @@ namespace GeneralUtilityMod.Patches
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(PlayerController), "Start")]
-        static void PrefixPlayerControllerStart(PlayerController __instance)
+        static void PlayerControllerStartPre(PlayerController __instance)
         {
             playerController = __instance;
         }
