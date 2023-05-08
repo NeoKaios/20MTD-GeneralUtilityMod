@@ -23,7 +23,7 @@ namespace GeneralUtilityMod.Patches
         [HarmonyPatch(typeof(IdleState), "Enter")]
         static void IdleStateEnterPostfix(PlayerController ___owner)
         {
-            if (skillCallback.MethodExists() && ___owner.playerInput.actions["Skill"].ReadValue<float>() != 0f)
+            if (GUMPlugin.holdSkillTrigger.Value && skillCallback.MethodExists() && ___owner.playerInput.actions["Skill"].ReadValue<float>() != 0f)
             {
                 skillCallback.GetValue(new object[] { null });
             }
