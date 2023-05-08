@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - SkillHold Patch
 
+### Fix
+
+- Cursor was not appearing when StartAt Patch was on Character, Gun, Rune or Mode state.
+
 ## [1.2.0] - 2023-05-01
 
 ### Added
