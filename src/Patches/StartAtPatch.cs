@@ -52,11 +52,21 @@ namespace GeneralUtilityMod.Patches
             }
         }
 
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(CharacterSelectState), "Enter")]
+        [HarmonyPatch(typeof(RuneMenuGunState), "Enter")]
+        [HarmonyPatch(typeof(ModeSelectState), "Enter")]
+        static void UIScreenStateEnterPrefix()
+        {
+            Cursor.visible = true;
+        }
+
         [HarmonyPatch(typeof(GunSelectState), "Enter")]
         [HarmonyPrefix]
         static void GunEnter_prefix(TitleScreenController ___owner)
         {
             // Fix used when startAt is set to Gun, Mode or Rune
+            Cursor.visible = true;
             ___owner.selectPanel.Show();
         }
 

@@ -4,7 +4,7 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AssemblyName>GeneralUtilityMod</AssemblyName>
 		<Description>A mod for gamers</Description>
-		<Version>1.2.0</Version>
+		<Version>1.3.0</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
@@ -34,6 +34,9 @@
 		<Reference Include="UnityEngine UI">
 			<HintPath>$(GameLibDir)/UnityEngine.UI.dll</HintPath>
 		</Reference>
+		<Reference Include="UnityEngine Input">
+			<HintPath>$(GameLibDir)/Unity.InputSystem.dll</HintPath>
+		</Reference>
 		<Reference Include="Unity.TextMeshPro">
 			<HintPath>$(GameLibDir)/Unity.TextMeshPro.dll</HintPath>
 		</Reference>
@@ -45,6 +48,7 @@
 	<!--Automatic deploy-->
 	<Target Name="Deploy" AfterTargets="Build">
 		<Copy SourceFiles="@(MainAssembly)" DestinationFolder="$(BepInExDir)\plugins" />
+		<Exec Command='cmd /K "$(GameDir)\MinutesTillDawn.exe"'/>
 	</Target>
 
   <!--Automatic antideploy-->

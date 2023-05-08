@@ -15,6 +15,8 @@ namespace GeneralUtilityMod
         public static ConfigEntry<bool> hasReverseTimer;
         public static ConfigEntry<Patches.AchievementWatcherState> hasAchievementWatcher;
         public static ConfigEntry<bool> achievementWatcherShowInactive;
+        public static ConfigEntry<bool> holdSkillTrigger;
+
         private void Awake()
         {
             activateMod = Config.Bind("Activation", "G.U.M.", true, "If false, the mod does not load");
@@ -28,17 +30,19 @@ namespace GeneralUtilityMod
             hasReverseTimer = Config.Bind("Utility", "Reverse Timer", false, "Reverse in-game timer, starts at 00:00, ends at 20:00");
             hasAchievementWatcher = Config.Bind("Utility", "Achievement Watcher", Patches.AchievementWatcherState.Pause, "State of the Achievement Watcher panel");
             achievementWatcherShowInactive = Config.Bind("Utility", "AW: Show inactive", false, "Whether or not to show currently failing achievements");
+            holdSkillTrigger = Config.Bind("QoL", "Skill Hold", true, "Whether to trigger (Abby's) skill when the reload action finishes and right-click is pressed down");
 
             try
             {
                 Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
                 string mod = "G.U.M.";
                 if (menuStartAt.Value == Patches.MainMenuState.WaitToBattle)
-                    ModOptions.Register(menuStartAt, subMenuName: mod); // Not be stuck in WaitToBattle mod
+                    ModOptions.Register(menuStartAt, subMenuName: mod); // To not be stuck in WaitToBattle mod
                 else ModOptions.Register(menuStartAt, null, ConfigEntryLocationType.MainOnly, subMenuName: mod);
                 ModOptions.Register(hasReverseTimer, null, ConfigEntryLocationType.MainOnly, subMenuName: mod);
                 ModOptions.Register(hasAchievementWatcher, subMenuName: mod);
                 ModOptions.Register(achievementWatcherShowInactive, subMenuName: mod);
+                ModOptions.Register(holdSkillTrigger, subMenuName: mod);
             }
             catch (Exception e)
             {
