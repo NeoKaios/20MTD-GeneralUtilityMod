@@ -2,8 +2,6 @@ using System.ComponentModel;
 using UnityEngine;
 using HarmonyLib;
 using flanne;
-using flanne.UI;
-using flanne.UIExtensions;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Linq;
