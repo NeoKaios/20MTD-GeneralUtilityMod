@@ -4,6 +4,7 @@ using HarmonyLib;
 using System.Reflection;
 using System;
 using MTDUI;
+using UtillI;
 
 namespace GeneralUtilityMod
 {
@@ -13,7 +14,7 @@ namespace GeneralUtilityMod
         public static ConfigEntry<bool> activateMod;
         public static ConfigEntry<Patches.MainMenuState> menuStartAt;
         public static ConfigEntry<bool> hasReverseTimer;
-        public static ConfigEntry<Patches.AchievementWatcherState> hasAchievementWatcher;
+        public static ConfigEntry<DisplayRule> hasAchievementWatcher;
         public static ConfigEntry<bool> achievementWatcherShowInactive;
         public static ConfigEntry<bool> holdSkillTrigger;
 
@@ -28,7 +29,7 @@ namespace GeneralUtilityMod
             }
             menuStartAt = Config.Bind("Utility", "Menu Starting State", Patches.MainMenuState.Character, "State in which the title screen will load\n/!\\ WaitToBattle: Will directly launch Battle Scene | Cannot reach menu with this option");
             hasReverseTimer = Config.Bind("Utility", "Reverse Timer", false, "Reverse in-game timer, starts at 00:00, ends at 20:00");
-            hasAchievementWatcher = Config.Bind("Utility", "Achievement Watcher", Patches.AchievementWatcherState.Pause, "State of the Achievement Watcher panel");
+            hasAchievementWatcher = Config.Bind("Utility", "Achievement Watcher", DisplayRule.PauseOnly, "State of the Achievement Watcher panel");
             achievementWatcherShowInactive = Config.Bind("Utility", "AW: Show inactive", false, "Whether or not to show currently failing achievements");
             holdSkillTrigger = Config.Bind("QoL", "Skill Hold", true, "Whether to trigger (Abby's) skill when the reload action finishes and right-click is pressed down");
 
@@ -43,6 +44,7 @@ namespace GeneralUtilityMod
                 ModOptions.Register(hasAchievementWatcher, subMenuName: mod);
                 ModOptions.Register(achievementWatcherShowInactive, subMenuName: mod);
                 ModOptions.Register(holdSkillTrigger, subMenuName: mod);
+                UtillIRegister.Register(new Objects.AchievementWatcher(PanelPosition.BottomLeft, hasAchievementWatcher.Value));
             }
             catch (Exception e)
             {
