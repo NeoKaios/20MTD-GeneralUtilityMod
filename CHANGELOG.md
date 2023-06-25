@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2023-06-25
+
+- Fix mod for 20MTD 1.0
+- Used UtillI lib for AchievementWatcher
+
 ## [1.3.0] - 2023-05-08
 
 ### Added

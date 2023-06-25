@@ -2,7 +2,6 @@ using System.ComponentModel;
 using UnityEngine;
 using HarmonyLib;
 using flanne;
-using flanne.RuneSystem;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Linq;
@@ -26,6 +25,8 @@ namespace GeneralUtilityMod.Patches
     [HarmonyPatch]
     class StartAtPatch
     {
+        static readonly string playerPrefsCharacterKey = "LastCharacterSelected";
+        static readonly string playerPrefsGunKey = "LastGunSelected";
         static Dictionary<MainMenuState, Type> stringToState = new Dictionary<MainMenuState, Type>() {
                 {MainMenuState.Main, typeof(TitleMainMenuState)},
                 {MainMenuState.Character, typeof(CharacterSelectState)},
@@ -37,36 +38,44 @@ namespace GeneralUtilityMod.Patches
 
         [HarmonyPatch(typeof(WaitToLoadIntoBattleState), "Enter")]
         [HarmonyPrefix]
-        static void WaitEnter_prefix(TitleScreenController ___owner)
+        static void LoadoutFix(TitleScreenController ___owner)
         {
-            // Avoid loading default character, map and gun
-            if (GUMPlugin.menuStartAt.Value == MainMenuState.WaitToBattle)
+            if (Loadout.CharacterSelection == null)
             {
-                SelectedMap.MapData = ___owner.modeSelectMenu.toggledData;
+                Loadout.CharacterIndex = PlayerPrefs.GetInt(playerPrefsCharacterKey, 0);
+                Loadout.CharacterSelection = ___owner.characterMenu[Loadout.CharacterIndex];
             }
-            if (GUMPlugin.menuStartAt.Value == MainMenuState.Mode
-            || GUMPlugin.menuStartAt.Value == MainMenuState.WaitToBattle)
+            if (Loadout.GunSelection == null)
             {
-                GunSelectState gss = ___owner.GetState<GunSelectState>();
-                AccessTools.DeclaredMethod(typeof(GunSelectState), "SetLoadout").Invoke(gss, null);
+                Loadout.GunIndex = PlayerPrefs.GetInt(playerPrefsGunKey, 0);
+                Loadout.GunSelection = ___owner.gunMenu[Loadout.GunIndex];
+            }
+            else
+            {
+                PlayerPrefs.SetInt(playerPrefsGunKey, Loadout.GunIndex);
+            }
+            if (SelectedMap.MapData == null)
+            {
+                if (___owner.modeSelectMenu.currIndex == 1)
+                {
+                    SelectedMap.MapData = ___owner.mapSelectMenu.toggledData;
+                }
+                else
+                {
+                    SelectedMap.MapData = ___owner.modeSelectMenu.toggledData;
+                }
             }
         }
 
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(CharacterSelectState), "Enter")]
-        [HarmonyPatch(typeof(RuneMenuGunState), "Enter")]
         [HarmonyPatch(typeof(ModeSelectState), "Enter")]
-        static void UIScreenStateEnterPrefix()
-        {
-            Cursor.visible = true;
-        }
-
+        [HarmonyPatch(typeof(RuneMenuGunState), "Enter")]
+        [HarmonyPatch(typeof(CharacterSelectState), "Enter")]
         [HarmonyPatch(typeof(GunSelectState), "Enter")]
         [HarmonyPrefix]
-        static void GunEnter_prefix(TitleScreenController ___owner)
+        static void UIScreenStateFix(TitleScreenController ___owner)
         {
-            // Fix used when startAt is set to Gun, Mode or Rune
             Cursor.visible = true;
+            ___owner.checkRunesPromptArrow.enabled = false;
             ___owner.selectPanel.Show();
         }
 
