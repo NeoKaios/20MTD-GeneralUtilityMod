@@ -10,11 +10,12 @@ GUM provides some quality of life configurable tweaks that make the game even be
 
 #### Utility
 
-- Menu starting point: can start the game directly in the Character select menu for instance (needs restart)
 - Reverse Timer: If you prefer your timer to increase (like in endless) (needs restart)
+- Misc stats avaiable during battle (Enemies killed)
 
 #### Quality of life
 
+- Menu starting point: can start the game directly in the Character select menu for instance (needs restart)
 - Skill Hold: Holding the right-click down during a reload will now trigger Abby's special upon finishing the reload !
 
 #### Achievement Watcher

@@ -16,6 +16,7 @@ namespace GeneralUtilityMod
         public static ConfigEntry<bool> hasReverseTimer;
         public static ConfigEntry<DisplayRule> hasAchievementWatcher;
         public static ConfigEntry<bool> achievementWatcherShowInactive;
+        public static ConfigEntry<DisplayRule> hasMiscStats;
         public static ConfigEntry<bool> holdSkillTrigger;
 
         private void Awake()
@@ -31,6 +32,7 @@ namespace GeneralUtilityMod
             hasReverseTimer = Config.Bind("Utility", "Reverse Timer", false, "Reverse in-game timer, starts at 00:00, ends at 20:00");
             hasAchievementWatcher = Config.Bind("Utility", "Achievement Watcher", DisplayRule.PauseOnly, "State of the Achievement Watcher panel");
             achievementWatcherShowInactive = Config.Bind("Utility", "AW: Show inactive", false, "Whether or not to show currently failing achievements");
+            hasMiscStats = Config.Bind("Utility", "Misc Stats", DisplayRule.PauseOnly, "State of the Miscellaneous Stats panel");
             holdSkillTrigger = Config.Bind("QoL", "Skill Hold", true, "Whether to trigger (Abby's) skill when the reload action finishes and right-click is pressed down");
 
             try
@@ -43,8 +45,11 @@ namespace GeneralUtilityMod
                 ModOptions.Register(hasReverseTimer, null, ConfigEntryLocationType.MainOnly, subMenuName: mod);
                 ModOptions.Register(hasAchievementWatcher, subMenuName: mod);
                 ModOptions.Register(achievementWatcherShowInactive, subMenuName: mod);
+                ModOptions.Register(hasMiscStats, subMenuName: mod);
                 ModOptions.Register(holdSkillTrigger, subMenuName: mod);
+
                 UtillIRegister.Register(new Objects.AchievementWatcher(PanelPosition.BottomLeft, hasAchievementWatcher.Value));
+                UtillIRegister.Register(new Objects.MiscellaneousStats(PanelPosition.BottomLeft, hasMiscStats.Value));
             }
             catch (Exception e)
             {
