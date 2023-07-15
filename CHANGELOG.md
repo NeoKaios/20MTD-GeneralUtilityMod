@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2023-07-16
+
 ### Added
 
-- MiscellaneousStats panel with enemyKilled
+- Miscellaneous Stats panel with enemyKilled
 
 ## [2.0.0] - 2023-06-25
 

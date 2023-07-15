@@ -4,7 +4,7 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<AssemblyName>GeneralUtilityMod</AssemblyName>
 		<Description>A mod for gamers</Description>
-		<Version>2.0.0</Version>
+		<Version>2.1.0</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
@@ -66,7 +66,7 @@
 	<Target Name="Package" AfterTargets="Publish">
 		<MakeDir Directories="$(MSBuildProjectDirectory)\release" />
 		<Copy SourceFiles="@(MainAssembly)" DestinationFolder="$(MSBuildProjectDirectory)\release" />
-    	<Copy SourceFiles="README.md;icon.png;manifest.json" DestinationFolder="$(MSBuildProjectDirectory)\release"/>
+    	<Copy SourceFiles="README.md;icon.png;manifest.json;CHANGELOG.md" DestinationFolder="$(MSBuildProjectDirectory)\release"/>
 		<ZipDirectory SourceDirectory="$(MSBuildProjectDirectory)\release" DestinationFile="$(MSBuildProjectDirectory)\$(AssemblyName)-v$(Version).zip" />
 	</Target>
 </Project>
