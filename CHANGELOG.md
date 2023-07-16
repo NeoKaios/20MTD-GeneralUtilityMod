@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2023-07-16
+
+### Added
+
+- Miscellaneous Stats panel with enemyKilled
+
 ## [2.0.0] - 2023-06-25
 
 - Fix mod for 20MTD 1.0
